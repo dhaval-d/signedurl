@@ -66,7 +66,7 @@ public class SampleApp {
 
 
         // Step 1 - Create sample file and assign SignedURL for 1 minute
-        String signedURL = performGetObject(EXPIRATION_TIME);
+        String signedURL = createSignedURL(EXPIRATION_TIME);
         // Step 2 - use this signed URL until expiration time (1 minute in this case) to read file
         System.out.println(signedURL);
 
@@ -92,7 +92,7 @@ public class SampleApp {
 
     /** This method create file in the bucket and creates signed URL that can be used to read until
      *  expiration time finishes.*/
-    private static String performGetObject(String EXPIRATION_TIME) {
+    private static String createSignedURL(String EXPIRATION_TIME) {
         ServiceAccountCredentials credentials=null;
         File credentialsPath = new File("storage_writer.json");
 
@@ -107,7 +107,6 @@ public class SampleApp {
                 .setCredentials(credentials)
                 .build()
                 .getService();
-
 
         // Create a bucket
         try {
@@ -126,18 +125,12 @@ public class SampleApp {
         }
 
         String requestString = "";
-
         requestString+= "GET" + "\n"
                 + "\n"
                 + "\n"
                 + EXPIRATION_TIME + "\n"
                 + "/"+BUCKET_NAME+"/"+READ_FILE_NAME;
-
-
-
         String GOOGLE_ACCESS_STORAGE_ID = credentials.getClientEmail();
-
-
         byte[] signature= credentials.sign(requestString.getBytes(StandardCharsets.UTF_8));
         String encoded_signature = Base64.getEncoder().encodeToString(signature);
 
@@ -149,7 +142,6 @@ public class SampleApp {
 
         String final_signed_url = "https://" + READ_RESOURCE_URL + "?GoogleAccessId=" + GOOGLE_ACCESS_STORAGE_ID + "&Expires="
                 + EXPIRATION_TIME + "&Signature=" + encoded_signature;
-
         return final_signed_url;
     }
 
@@ -172,7 +164,6 @@ public class SampleApp {
         // Needed to overcome SSL issue I was running into.
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
                 new javax.net.ssl.HostnameVerifier(){
-
                     public boolean verify(String hostname,
                                           javax.net.ssl.SSLSession sslSession) {
                         return hostname.equals(BUCKET_NAME+"."+BASE_GCS_URL);
@@ -236,13 +227,11 @@ public class SampleApp {
             URL url = new URL(UPLOAD_URL);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("PUT");
-
             connection.setRequestProperty("Host", BUCKET_NAME+"."+BASE_GCS_URL);
             connection.setRequestProperty("Date", DateTime.now().toString());
             connection.setRequestProperty("Content-Length"
                     , Integer.toString(input_file_data.getBytes(StandardCharsets.UTF_8.toString()).length));
             connection.setRequestProperty("Content-Type", "text/plain");
-
             connection.setDoOutput(true);
 
             OutputStreamWriter out = new OutputStreamWriter(
@@ -251,12 +240,10 @@ public class SampleApp {
             out.close();
             connection.getInputStream();
 
-
             System.out.println("Client data upload response code: "+connection.getResponseCode());
             //Get Response
             InputStream is = connection.getInputStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-
             StringBuilder response = new StringBuilder(""); // or StringBuffer if Java version 5+
             String line;
             while ((line = rd.readLine()) != null) {
@@ -267,14 +254,11 @@ public class SampleApp {
             rd.close();
        } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
             if (connection != null) {
                 connection.disconnect();
             }
         }
-
-
     }
 
 
