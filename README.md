@@ -1,7 +1,7 @@
 # signedurl - This is a sample app that shows how to interact with GCS using signed URLS.
 ## Example walks through two scenarios. 
 ## 1. Read using signed URL 
-###reference: https://cloud.google.com/storage/docs/access-control/create-signed-urls-program
+### reference: https://cloud.google.com/storage/docs/access-control/create-signed-urls-program
 In this step, first I create a bucket and file on GCS.
 Once file is created, I create signed URL that can be used by clients.
 This signed url has an expiration time. I set it as 1 minute.
