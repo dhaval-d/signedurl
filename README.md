@@ -12,6 +12,10 @@ This is a two step process. First we initiate a request(using POST method) to cr
 Once request is initiated, send URL to client so that client can upload data(using PUT method) to URL.
 
 
+#### Things to be changed/considered for using this sample code:
+1. Create your own bucket and use that name.
+2. Customize your code for authentication. I am using service account key file. More details below.
+3. THIS IS A SAMPLE CODE---- DON'T USE IT FOR PRODUCTION.
 
 #### Please note: 
 For authentication I am using service account key file. However, there are many options.
