@@ -8,5 +8,5 @@ This signed url has an expiration time. I set it as 1 minute.
 
 ## 2. Write using signed URL and resumable uploads 
 ### reference: https://cloud.google.com/storage/docs/xml-api/resumable-upload
-This is a two step process. First we initiate request. 
-Once request is initiated, send URL to client so that client can upload data to URL.
+This is a two step process. First we initiate request(using POST method) the request to create file(blob). 
+Once request is initiated, send URL to client so that client can upload data(using PUT method) to URL.
