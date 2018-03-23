@@ -10,3 +10,9 @@ This signed url has an expiration time. I set it as 1 minute.
 ### reference: https://cloud.google.com/storage/docs/xml-api/resumable-upload
 This is a two step process. First we initiate a request(using POST method) to create file(blob). 
 Once request is initiated, send URL to client so that client can upload data(using PUT method) to URL.
+
+
+
+#### Please note: 
+For authentication I am using service account key file. However, there are many options.
+Here's a link that provides these options: https://cloud.google.com/docs/authentication/
